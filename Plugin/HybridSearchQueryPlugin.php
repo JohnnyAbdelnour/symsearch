@@ -79,6 +79,7 @@ class HybridSearchQueryPlugin
 
             $searchQuery['body']['query'] = [
                 'hybrid' => [
+                    'pagination_depth' => $this->config->getPaginationDepth($storeId),
                     'queries' => [
                         $original,
                         ['knn' => [Config::FIELD_NAME => $knn]],

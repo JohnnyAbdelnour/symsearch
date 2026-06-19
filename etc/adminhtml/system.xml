@@ -86,6 +86,11 @@
                     <comment>Minimum 100ms is enforced.</comment>
                     <validate>validate-number validate-greater-than-zero</validate>
                 </field>
+                <field id="pagination_depth" translate="label comment" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Hybrid Pagination Depth</label>
+                    <validate>validate-number validate-greater-than-zero</validate>
+                    <comment>Max depth OpenSearch retrieves for hybrid (semantic) results — required for pages beyond page 1. Higher = deeper pagination + larger reported result count, but more query cost. Keep constant; changing it shifts result counts. Default 1000.</comment>
+                </field>
             </group>
             <group id="operations" translate="label" sortOrder="50" showInDefault="1">
                 <label>Operations</label>

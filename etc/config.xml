@@ -23,6 +23,7 @@
                 <knn_k>100</knn_k>
                 <min_score>0</min_score>
                 <query_timeout_ms>800</query_timeout_ms>
+                <pagination_depth>1000</pagination_depth>
             </ranking>
         </symsearch>
     </default>

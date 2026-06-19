@@ -42,6 +42,7 @@ class HybridSearchQueryPluginTest extends TestCase
         $this->config->method('isStorefrontEnabled')->willReturn(true);
         $this->config->method('getKnnK')->willReturn(100);
         $this->config->method('getMinScore')->willReturn(0.0);
+        $this->config->method('getPaginationDepth')->willReturn(1000);
 
         $this->queryEmbedding = $this->createMock(QueryEmbedding::class);
 
@@ -271,6 +272,7 @@ class HybridSearchQueryPluginTest extends TestCase
         $config->method('isStorefrontEnabled')->willReturn(true);
         $config->method('getKnnK')->willReturn(100);
         $config->method('getMinScore')->willReturn(0.4);
+        $config->method('getPaginationDepth')->willReturn(1000);
         $queryEmbedding = $this->createMock(QueryEmbedding::class);
         $queryEmbedding->method('getVector')->willReturn([0.1, 0.2]);
         $store = $this->createMock(StoreInterface::class);
@@ -288,5 +290,12 @@ class HybridSearchQueryPluginTest extends TestCase
         $knn = $result['body']['query']['hybrid']['queries'][1]['knn']['embedding_vector'];
         $this->assertSame(0.4, $knn['min_score']);
         $this->assertArrayNotHasKey('k', $knn);
+    }
+
+    public function testHybridIncludesPaginationDepth(): void
+    {
+        $this->queryEmbedding->method('getVector')->willReturn([0.1, 0.2]);
+        $result = $this->plugin->afterBuildQuery($this->mapper, $this->baseSearchQuery(), $this->request);
+        $this->assertSame(1000, $result['body']['query']['hybrid']['pagination_depth']);
     }
 }

@@ -26,6 +26,7 @@ class Config
     private const XML_KNN_K              = 'symsearch/ranking/knn_k';
     private const XML_MIN_SCORE          = 'symsearch/ranking/min_score';
     private const XML_QUERY_TIMEOUT_MS   = 'symsearch/ranking/query_timeout_ms';
+    private const XML_PAGINATION_DEPTH   = 'symsearch/ranking/pagination_depth';
 
     public function __construct(
         private readonly ScopeConfigInterface $scopeConfig,
@@ -118,5 +119,10 @@ class Config
     public function getQueryTimeoutMs(int $storeId): int
     {
         return max(100, (int)$this->scopeConfig->getValue(self::XML_QUERY_TIMEOUT_MS, ScopeInterface::SCOPE_STORE, $storeId));
+    }
+
+    public function getPaginationDepth(int $storeId): int
+    {
+        return max(1, (int)$this->scopeConfig->getValue(self::XML_PAGINATION_DEPTH, ScopeInterface::SCOPE_STORE, $storeId));
     }
 }
